@@ -14,12 +14,13 @@ class CreateSubredditsTable extends Migration
     public function up()
     {
         Schema::create('subreddits', function (Blueprint $table) {
-            $table->id();
             $table->string('name');
             $table->integer('subscribers')->default(0);
             $table->text('description')->nullable();
             $table->text('rules')->nullable();
             $table->timestamps();
+
+            $table->primary('name');
         });
     }
 
