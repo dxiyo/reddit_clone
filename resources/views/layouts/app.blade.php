@@ -24,16 +24,19 @@
         <div class="min-h-screen bg-gray-200">
             @livewire('navigation-menu')
 
+            @yield('header')
+
             <!-- Page Content -->
             <main class="w-11/12 mx-auto">
                 {{-- {{ $slot }} --}}
 
-                <div class="mx-auto w-9/12 h-60 mt-24 rounded flex">
+                <div class="mx-auto w-9/12 h-60 mt-6 rounded flex">
                     <div class="w-2/3 rounded height-60 flex-col">
+                        @yield('content')
                         <x-posts />
                     </div>
                     <div class="w-1/3 rounded height-60 ml-8">
-                        
+                        @include('sidebar')
                     </div>
                 </div>
             </main>

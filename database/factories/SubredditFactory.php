@@ -25,7 +25,8 @@ class SubredditFactory extends Factory
         return [
             'name' => $this->faker->word,
             'user_id' => User::factory()->create(),
-            'description' => $this->faker->sentence
+            'description' => $this->faker->sentence,
+            'rules' => $this->faker->sentences
         ];
     }
 }
