@@ -15,6 +15,9 @@ class CreateSubredditsTable extends Migration
     {
         Schema::create('subreddits', function (Blueprint $table) {
             $table->string('name');
+            $table->foreignId('user_id')
+            ->constrained()
+            ->onDelete('cascade');
             $table->integer('subscribers')->default(0);
             $table->text('description')->nullable();
             $table->text('rules')->nullable();

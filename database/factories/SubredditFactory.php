@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Subreddit;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
 
 class SubredditFactory extends Factory
 {
@@ -23,6 +24,7 @@ class SubredditFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
+            'user_id' => User::factory()->create(),
             'description' => $this->faker->sentence
         ];
     }
