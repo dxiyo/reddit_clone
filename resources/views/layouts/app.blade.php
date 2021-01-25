@@ -25,8 +25,17 @@
             @livewire('navigation-menu')
 
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
+            <main class="w-11/12 mx-auto">
+                {{-- {{ $slot }} --}}
+
+                <div class="mx-auto w-9/12 h-60 mt-24 rounded flex">
+                    <div class="w-2/3 rounded height-60 flex-col">
+                        <x-posts />
+                    </div>
+                    <div class="w-1/3 rounded height-60 ml-8">
+                        
+                    </div>
+                </div>
             </main>
         </div>
 
