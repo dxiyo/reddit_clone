@@ -2,17 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\Subreddit;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Subreddit;
+use App\Models\User;
 
-class SubredditFactory extends Factory
+class PostFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Subreddit::class;
+    protected $model = Post::class;
 
     /**
      * Define the model's default state.
@@ -22,8 +24,10 @@ class SubredditFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
-            'description' => $this->faker->sentence
+            'subreddit_name' => Subreddit::factory()->create(),
+            'user_id' => User::factory()->create(),
+            'title' => $this->faker->sentence,
+            'body' => $this->faker->paragraph,
         ];
     }
 }

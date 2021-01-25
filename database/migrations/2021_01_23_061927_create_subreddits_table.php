@@ -20,7 +20,8 @@ class CreateSubredditsTable extends Migration
             $table->text('rules')->nullable();
             $table->timestamps();
 
-            $table->primary('name');
+            $table->primary('name', 'subreddit_name');
+            $table->unique('name');
         });
     }
 
