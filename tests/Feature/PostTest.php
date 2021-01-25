@@ -31,4 +31,16 @@ class PostTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_user_who_created_post_can_be_viewed() 
+    {
+        $post = Post::factory()->create();
+        $this->assertInstanceOf(User::class, $post->user);
+    }
+
+    public function test_subreddit_that_post_belongs_to_can_be_viewed() 
+    {
+        $post = Post::factory()->create();
+        $this->assertInstanceOf(Subreddit::class, $post->subreddit);
+    }
 }
