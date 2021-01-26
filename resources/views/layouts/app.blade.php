@@ -32,11 +32,11 @@
 
                 <div class="mx-auto w-9/12 h-60 mt-6 rounded flex">
                     <div class="w-2/3 rounded height-60 flex-col">
-                        @yield('content')
+                        {{-- @yield('content') --}}
                         <x-posts />
                     </div>
                     <div class="w-1/3 rounded height-60 ml-8">
-                        @include('sidebar')
+                        @yield('sidebar')
                     </div>
                 </div>
             </main>

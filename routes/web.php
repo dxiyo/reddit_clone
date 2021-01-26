@@ -15,13 +15,17 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
+
+// Route::middleware('auth')->group(function () {
+    
+// });
 
 Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
-
 Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index']);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
