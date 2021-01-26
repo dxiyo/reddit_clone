@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubredditController;
 use App\Http\Controllers\PostController;
 use App\Models\Post;
+use App\Models\Subreddit;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,8 @@ use App\Models\Post;
 
 Route::get('/', function () {
     return view('home', [
-        'posts' => Post::all()
+        'posts' => Post::all(),
+        'subreddits' => Subreddit::take(4)->get()
     ]);
 })->name('home');
 

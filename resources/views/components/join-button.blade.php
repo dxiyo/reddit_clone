@@ -1,1 +1,1 @@
-<button class="bg-red-700 hover:bg-red-600 text-white font-bold px-10 py-1.5 rounded-3xl">Join</button>
+<button class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-10 py-1.5 rounded-3xl">Join</button>

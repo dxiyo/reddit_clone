@@ -28,4 +28,8 @@ class Subreddit extends Model
         return date("M d, Y", $time);
     }
 
+    public function getLogoAttribute() {
+        return 'https://i.pravatar.cc/150?u=' . $this->name;
+    }
+
 }
