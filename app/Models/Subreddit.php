@@ -22,6 +22,10 @@ class Subreddit extends Model
         return $this->belongsTo(User::class, 'user_id'); // laravel assumes the name of the column in the database is "function name " + "_id". and it's 'user_id' not 'owner_id' 
     }
 
-
+    // gets the time of creation of the subreddit in a formatted way
+    public function getCreatedAttribute() {
+        $time = date_timestamp_get($this->created_at);
+        return date("M d, Y", $time);
+    }
 
 }

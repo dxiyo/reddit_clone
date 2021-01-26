@@ -30,10 +30,9 @@
             <main class="w-11/12 mx-auto">
                 {{-- {{ $slot }} --}}
 
-                <div class="mx-auto w-9/12 h-60 mt-6 rounded flex">
+                <div class="mx-auto w-9/12 h-full mt-6 rounded flex">
                     <div class="w-2/3 rounded height-60 flex-col">
-                        {{-- @yield('content') --}}
-                        <x-posts />
+                        @yield('content')
                     </div>
                     <div class="w-1/3 rounded height-60 ml-8">
                         @yield('sidebar')

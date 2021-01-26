@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubredditController;
 use App\Http\Controllers\PostController;
+use App\Models\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,9 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', [
+        'posts' => Post::all()
+    ]);
 })->name('home');
 
 // Route::middleware('auth')->group(function () {
