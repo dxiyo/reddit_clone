@@ -7,7 +7,7 @@
     </div>
     <div class="flex flex-col p-2">
         <span class="text-gray-500 text-xs">
-            @if (isset($inHome))
+            @if (isset($inHome)) {{-- If this the homepage. view the name of the subreddit on the post --}}
                 <a href="/r/{{$post->subreddit->name}}" class="text-xs text-black font-bold hover:underline">/r/{{$post->subreddit->name}}</a>
             @endif
             • Posted by <span class="hover:underline">u/{{$post->user->name}}</span> 
