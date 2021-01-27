@@ -18,7 +18,7 @@
                         <span class="text-xs">909.678 Members</span>
                     </div>
                     <div class="ml-auto">
-                        <x-join-button />
+                        <x-join-button :subreddit="$subreddit" />
                     </div>
                 </div>
             @endforeach

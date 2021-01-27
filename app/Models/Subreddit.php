@@ -32,4 +32,8 @@ class Subreddit extends Model
         return 'https://i.pravatar.cc/150?u=' . $this->name;
     }
 
+    public function users() {
+        return $this->belongsToMany(User::class);
+    }
+
 }

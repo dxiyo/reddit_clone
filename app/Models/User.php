@@ -10,7 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Post;
-use App\Models\Subredditgit;
+use App\Models\Subreddit;
 
 class User extends Authenticatable
 {
@@ -70,4 +70,18 @@ class User extends Authenticatable
         return $this->hasMany(Subreddit::class);
     }
 
+    public function subscribed() {
+        return $this->belongsToMany(Subreddit::class)->withTimestamps();
+        
+    }
+    
+    public function subscribe(Subreddit $subreddit) {
+        if(!$this->is_subscribed($subreddit)) {
+            $this->subscribed()->save($subreddit);
+        }
+    }
+
+    public function is_subscribed(Subreddit $subreddit) {
+        return  count($this->subscribed()->where(['name' => $subreddit->name])->get()) > 0;
+    }
 }

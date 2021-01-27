@@ -11,7 +11,7 @@
                     <span class="text-sm text-gray-500">/r/{{$subreddit->name}}</span>
                 </div>
                 <div class="ml-6 mt-2.5">
-                    <x-join-button />
+                    <x-join-button :subreddit="$subreddit" />
                 </div>
             </div>
         </div>

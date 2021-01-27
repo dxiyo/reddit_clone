@@ -28,6 +28,7 @@ Route::get('/', function () {
 // });
 
 Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
+Route::post('/r/{subreddit}', [SubredditController::class, 'store']);
 Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index'])->name('post');
 
 

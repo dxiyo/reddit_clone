@@ -12,6 +12,8 @@ use App\Models\User;
 class PostTest extends TestCase
 {
     use RefreshDatabase;
+
+
     /**
      * A basic feature test example.
      *
