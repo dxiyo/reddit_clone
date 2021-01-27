@@ -28,7 +28,7 @@ Route::get('/', function () {
 // });
 
 Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
-Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index']);
+Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index'])->name('post');
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
