@@ -134,10 +134,10 @@
             @else
             {{-- IF THE USER IS NOT LOGGED IN. HE'LL GET THIS INSTEAD --}}
             <div class="my-auto">
-                <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
+                <a href="{{ route('login') }}" class="text-blue-600 border border-blue-600 hover:bg-gray-100 px-7 py-1 font-bold rounded-3xl">Log In</a>
     
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                    <a href="{{ route('register') }}" class="ml-4  text-white bg-blue-600 hover:bg-blue-500 px-7 py-1 font-bold rounded-3xl">Sign Up</a>
                 @endif
             </div>
             @endauth
