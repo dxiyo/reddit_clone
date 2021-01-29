@@ -22,7 +22,6 @@ class CreatePost extends Component
     // }
     public function updated() {
         return redirect()->to('/r/' . $this->sub . '/submit');
-
     }
 
     public function render()

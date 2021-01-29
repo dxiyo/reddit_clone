@@ -59,4 +59,15 @@ class PostTest extends TestCase
                         ->get("/r/$sub->name/submit");
         $response2->assertStatus(200);
     }
+
+    public function test_post_that_user_created_is_stored()
+    {
+        $user = User::factory()->create();
+        $sub = Subreddit::factory()->create();
+        $response = $this->actingAs($user)
+                    ->post("/r/$sub->name/submit");
+        $response->assertStatus(200);
+
+        // $this->assertEquals(1, Post::count());
+    }
 }

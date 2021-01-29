@@ -33,8 +33,9 @@ Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
 Route::post('/r/{subreddit}', [SubredditController::class, 'store']);
 
 Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index'])->name('post');
-Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
 Route::get('/submit', SubmitController::class);
+Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
+Route::post('/r/{subreddit}/submit', [PostController::class, 'store']);
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

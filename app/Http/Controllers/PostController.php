@@ -22,4 +22,20 @@ class PostController extends Controller
             'subreddit' => Subreddit::where('name', $subreddit)->first()
         ]);
     }
+
+    public function store(Subreddit $subreddit, Request $request) {
+        $validator = $request->validate([
+            'title' => 'required|max:300',
+            'body' => 'nullable'
+        ]);
+        
+        $post = Post::create([
+            'user_id' => auth()->user()->id,
+            'subreddit_name' => $subreddit->name,
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+        
+        return redirect()->to('/r/' . $subreddit->name . '/comments/' . $post->title);
+    }
 }
