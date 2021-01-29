@@ -15,4 +15,11 @@ class PostController extends Controller
             'subreddit' => $post->subreddit
         ]);
     }
+
+    public function create($subreddit) {
+        return view('create-sub', [
+            'subreddits' => auth()->user()->subscribed,
+            'subreddit' => Subreddit::where('name', $subreddit)->first()
+        ]);
+    }
 }

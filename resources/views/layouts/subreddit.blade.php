@@ -24,7 +24,7 @@
 
 @section('sidebar')
 <div class="bg-white border border-gray-300 rounded mb-8">
-    <div class="p-2 bg-gray-400 rounded-t">
+    <div class="p-2 rounded-t">
         <h4 class="font-bold">About Community</h4>
     </div>
     <div class="p-3">
@@ -47,7 +47,7 @@
     </div>
 </div>
 <div class="bg-white border border-gray-300 rounded">
-    <div class="p-2 bg-gray-400 rounded-t">
+    <div class="p-2 rounded-t">
         <div class="font-bold">r/{{$subreddit->name}} Rules</div>
     </div>
     <div class="p-3">

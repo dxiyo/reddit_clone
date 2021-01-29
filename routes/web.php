@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubredditController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SubmitController;
+use App\Http\Livewire\CreatePost;
 use App\Models\Post;
 use App\Models\Subreddit;
 /*
@@ -29,7 +31,10 @@ Route::get('/', function () {
 
 Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
 Route::post('/r/{subreddit}', [SubredditController::class, 'store']);
+
 Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index'])->name('post');
+Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
+Route::get('/submit', SubmitController::class);
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

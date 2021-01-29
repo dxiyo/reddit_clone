@@ -45,4 +45,18 @@ class PostTest extends TestCase
         $post = Post::factory()->create();
         $this->assertInstanceOf(Subreddit::class, $post->subreddit);
     }
+
+    public function test_user_can_create_post()
+    {
+        $user = User::factory()->create();
+        $sub = Subreddit::factory()->create();
+
+        $response = $this->actingAs($user)
+                        ->get('/submit');
+        $response->assertStatus(200);
+
+        $response2 = $this->actingAs($user)
+                        ->get("/r/$sub->name/submit");
+        $response2->assertStatus(200);
+    }
 }
