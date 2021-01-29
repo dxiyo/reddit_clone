@@ -36,4 +36,7 @@ class Subreddit extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function getRulesArrAttribute() {
+        return json_decode($this->rules);
+    }
 }
