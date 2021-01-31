@@ -2,11 +2,8 @@
 
 @section('content')
 <div class="bg-white border border-gray-300 rounded flex">
-    <div class="w-10 flex flex-col items-center p-2">
-        <a href="#"><i class="fas fa-arrow-up text-gray-500 hover:bg-gray-200 p-1 hover:text-red-600"></i></a>
-        <span class="font-medium">000</span>
-        <a href="#"><i class="fas fa-arrow-down text-gray-500 hover:bg-gray-200 p-1 hover:text-blue-600"></i></a>
-    </div>
+    {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
+    @livewire('upvotes', ['upvotes' => $upvotes])
     <div class="flex flex-col p-2">
         <span class="text-gray-500 text-xs">
             {{-- If this the homepage. view the name of the subreddit on the post --}}

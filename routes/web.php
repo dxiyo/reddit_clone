@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\FrontPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubredditController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\KarmaController;
 use App\Http\Controllers\SubmitController;
 use App\Http\Livewire\CreatePost;
 use App\Models\Post;
@@ -18,12 +20,7 @@ use App\Models\Subreddit;
 |
 */
 
-Route::get('/', function () {
-    return view('home', [
-        'posts' => Post::all(),
-        'subreddits' => Subreddit::take(4)->get()
-    ]);
-})->name('home');
+Route::get('/', [FrontPageController::class, 'index'])->name('home');
 
 // Route::middleware('auth')->group(function () {
     
@@ -36,6 +33,9 @@ Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index
 Route::get('/submit', SubmitController::class);
 Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
 Route::post('/r/{subreddit}/submit', [PostController::class, 'store']);
+Route::post('/karma', function() {
+    return 'hey';
+});
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

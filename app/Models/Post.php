@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use App\Models\Subreddit;
 use App\Models\User;
+use App\Models\PostUpvotes;
 class Post extends Model
 {
     protected $guarded = [];
@@ -38,4 +41,35 @@ class Post extends Model
                 return $diff . " " . $strTime[$i] . "(s) ago ";
         }
     }
+
+    public function upvotes() {
+        return $this->hasMany(PostUpvotes::class);
+    }
+
+    public function scopeWithUpvotes(Builder $query) {
+        $query->leftJoinSub(
+            'SELECT post_id , sum(post_upvotes.upvoted - !post_upvotes.upvoted) as upvotes from post_upvotes GROUP BY post_id',
+            'post_upvotes',
+            'post_upvotes.post_id',
+            'posts.id'
+        );
+    }
+
+  
+
+    // this returns a whole "karma" row with ids and timestamps and stuff
+    // public function karma() {
+    //     return $this->hasMany(PostKarma::class);
+    // }
+
+    // // this returns only the karma and formats it
+    // public function getPurekarmaAttribute() {
+    //     $pureKarma = $this->karma->pluck('karma')[0];
+    //     if(strlen($pureKarma) > 3) {
+    //         return substr($pureKarma, 0, -3) . 'k';
+    //     }
+
+    //     return $pureKarma;
+    // }
+
 }

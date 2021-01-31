@@ -1,11 +1,8 @@
 @foreach ($posts as $post)    
 <div class="bg-white min-h-24 border border-gray-300 hover:border-gray-500 rounded-lg flex mb-3">
     {{-- UPVOTE AND DOWNVOTE --}}
-    <div class="w-10 bg-gray-100 flex flex-col items-center p-2">
-        <a href="#"><i class="fas fa-arrow-up text-gray-500 hover:bg-gray-200 p-1 hover:text-red-600"></i></a>
-        <span class="font-medium">000</span>
-        <a href="#"><i class="fas fa-arrow-down text-gray-500 hover:bg-gray-200 p-1 hover:text-blue-600"></i></a>
-    </div>
+    {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
+    @livewire('upvotes', ['upvotes' => $post->upvotes ?: 0])
     <div class="flex flex-col p-2">
         <span class="text-gray-500 text-xs">
             @if (isset($inHome)) {{-- If this the homepage. view the name of the subreddit on the post --}}
