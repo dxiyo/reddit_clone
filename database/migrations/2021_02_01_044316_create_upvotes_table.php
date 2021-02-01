@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostUpvotesTable extends Migration
+class CreateUpvotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreatePostUpvotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_upvotes', function (Blueprint $table) {
+        Schema::create('upvotes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
-            $table->foreignId('post_id')->unique()->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->morphs('upvoteable');
             $table->boolean('upvoted');
             $table->timestamps();
 
-            $table->unique(['user_id', 'post_id']);
+            $table->unique(['user_id', 'upvoteable_id']);
         });
     }
 
@@ -31,6 +31,6 @@ class CreatePostUpvotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_upvotes');
+        Schema::dropIfExists('upvotes');
     }
 }

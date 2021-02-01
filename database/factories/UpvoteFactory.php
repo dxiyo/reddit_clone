@@ -2,19 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\PostUpvotes;
-use App\Models\User;
+use App\Models\Upvote;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostUpvotesFactory extends Factory
+class UpvoteFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = PostUpvotes::class;
+    protected $model = Upvote::class;
 
     /**
      * Define the model's default state.
@@ -25,8 +25,10 @@ class PostUpvotesFactory extends Factory
     {
         return [
             'user_id' => User::factory()->create(),
-            'post_id' => Post::factory()->create(),
+            'upvoteable_id' => Post::factory()->create(),
+            'upvoteable_type' => 'App\Models\Post',
             'upvoted' => $this->faker->boolean()
         ];
+
     }
 }

@@ -2,7 +2,7 @@
 <div class="bg-white min-h-24 border border-gray-300 hover:border-gray-500 rounded-lg flex mb-3">
     {{-- UPVOTE AND DOWNVOTE --}}
     {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
-    @livewire('upvotes', ['upvotes' => $post->upvotes ?: 0])
+    @livewire('upvotes', ['upvotes' => $post->upvotes ?: 0, 'post' => $post])
     <div class="flex flex-col p-2">
         <span class="text-gray-500 text-xs">
             @if (isset($inHome)) {{-- If this the homepage. view the name of the subreddit on the post --}}

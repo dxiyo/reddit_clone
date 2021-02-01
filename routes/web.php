@@ -6,6 +6,7 @@ use App\Http\Controllers\SubredditController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\KarmaController;
 use App\Http\Controllers\SubmitController;
+use App\Http\Controllers\UpvoteController;
 use App\Http\Livewire\CreatePost;
 use App\Models\Post;
 use App\Models\Subreddit;
@@ -33,9 +34,8 @@ Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index
 Route::get('/submit', SubmitController::class);
 Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
 Route::post('/r/{subreddit}/submit', [PostController::class, 'store']);
-Route::post('/karma', function() {
-    return 'hey';
-});
+Route::post('/{user}/upvote/{post}', [UpvoteController::class, 'upvote']);
+Route::post('/{user}/downvote/{post}', [UpvoteController::class, 'downvote']);
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

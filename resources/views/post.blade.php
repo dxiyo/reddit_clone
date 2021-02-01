@@ -3,7 +3,7 @@
 @section('content')
 <div class="bg-white border border-gray-300 rounded flex">
     {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
-    @livewire('upvotes', ['upvotes' => $upvotes])
+    @livewire('upvotes', ['upvotes' => $upvotes, 'post' => $post])
     <div class="flex flex-col p-2">
         <span class="text-gray-500 text-xs">
             {{-- If this the homepage. view the name of the subreddit on the post --}}

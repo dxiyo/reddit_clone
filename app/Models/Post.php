@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Subreddit;
 use App\Models\User;
 use App\Models\PostUpvotes;
+use App\Models\Upvote;
 class Post extends Model
 {
     protected $guarded = [];
@@ -42,34 +43,66 @@ class Post extends Model
         }
     }
 
+    // Establishes a polymorphic relationship with the upvote model
     public function upvotes() {
-        return $this->hasMany(PostUpvotes::class);
+        return $this->morphMany(Upvote::class, 'upvoteable');
     }
 
+    // returns true or false based on if the user upvoted the post or not
+    public function isUpvotedBy(User $user) {
+        return (bool) $this->upvotes()->where(['user_id' => $user->id, 'upvoted' => true])->count();
+    }
+
+    // makes the user upvote
+    public function upvote(User $user) {
+        // if the user already upvoted, delete upvote record
+        if($this->isUpvotedBy($user)) {
+            $this->upvotes()->delete($user);
+        } else {
+            // first checks if the user downvoted the post. if he did, then update record to make it an upvote
+            if($this->isDownvotedBy($user)) {
+                $this->upvotes()
+                    ->where(['user_id' => $user->id])
+                    ->update(['upvoted' => true]);
+            } else {
+                // if the user neither already upvoted or downvoted the post, create a record with an upvote
+                $this->upvotes()->create(['user_id' => $user->id, 'upvoted' => true]);
+            }
+        }
+    }
+
+    // checks if the user downvoted the post
+    public function isDownvotedBy(User $user) {
+        return (bool) $this->upvotes()->where(['user_id' => $user->id, 'upvoted' => false])->count();
+    }
+
+    // makes the user downvote the post
+    public function downvote(User $user) {
+        // if the user already downvoted the post, delete the record of the upvote model relationship
+        if($this->isDownvotedBy($user)) {
+            $this->upvotes()->delete($user);
+        } else {
+            // if the user upvoted the post, update the record so that it's a downvote now
+            if($this->isUpvotedBy($user)) {
+                $this->upvotes()
+                    ->where(['user_id' => $user->id])
+                    ->update(['upvoted' => false]);
+            } else {
+                // if the user neither upvoted or downvoted the post, create a new record with a downvote
+                $this->upvotes()->create(['user_id' => $user->id, 'upvoted' => false]);
+            }
+        }
+    }
+
+    // returns the post model with an upvotes column
     public function scopeWithUpvotes(Builder $query) {
         $query->leftJoinSub(
-            'SELECT post_id , sum(post_upvotes.upvoted - !post_upvotes.upvoted) as upvotes from post_upvotes GROUP BY post_id',
-            'post_upvotes',
-            'post_upvotes.post_id',
+            "SELECT upvoteable_id, sum(upvotes.upvoted - !upvotes.upvoted) as upvotes from upvotes where upvoteable_type like '%Post' GROUP BY upvoteable_id",
+            'upvotes',
+            'upvotes.upvoteable_id',
             'posts.id'
         );
     }
 
-  
-
-    // this returns a whole "karma" row with ids and timestamps and stuff
-    // public function karma() {
-    //     return $this->hasMany(PostKarma::class);
-    // }
-
-    // // this returns only the karma and formats it
-    // public function getPurekarmaAttribute() {
-    //     $pureKarma = $this->karma->pluck('karma')[0];
-    //     if(strlen($pureKarma) > 3) {
-    //         return substr($pureKarma, 0, -3) . 'k';
-    //     }
-
-    //     return $pureKarma;
-    // }
 
 }
