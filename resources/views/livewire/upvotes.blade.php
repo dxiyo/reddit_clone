@@ -1,5 +1,8 @@
 <div class="w-10 flex flex-col items-center p-2">
-    <form action="/{{auth()->user()->id}}/upvote/{{$post->id}}" method="post" class="text-center">
+    <form 
+        @auth action="/{{auth()->user()->id}}/upvote/{{$post->id}}" method="post" @endauth 
+        @guest action="/login" method="get" @endguest
+        >
         @csrf
         <button type="submit">
             <i class="fas fa-arrow-up 
@@ -16,7 +19,10 @@
         </button>
     </form>
     <span class="font-medium">{{$upvotes}}</span>
-    <form action="/{{auth()->user()->id}}/downvote/{{$post->id}}" method="post">
+    <form 
+        @auth action="/{{auth()->user()->id}}/downvote/{{$post->id}}" method="post" @endauth 
+        @guest action="/login" method="get" @endguest
+        >
         @csrf
         <button type="submit">
             <i class="fas fa-arrow-down
