@@ -108,4 +108,8 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function numberOfComments() {
+        return $this->comments->count();
+    }
+
 }

@@ -24,7 +24,7 @@
         </a>
         <div>
             <a href="{{route('post', ['postTitle' => $post->title, 'subreddit' => $post->subreddit_name])}}">
-                <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-comment-alt"></i> 50 Comments</span>
+                <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-comment-alt"></i> {{$post->numberOfComments()}} Comments</span>
             </a>
             <a href="#">
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-share"></i> Share</span>

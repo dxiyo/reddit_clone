@@ -20,7 +20,7 @@
         <h3 class="font-bold text-xl mt-2 mb-4">{{$post->title}}</h3>
         <p>{{$post->body}}</p>
         <div>
-            <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold cursor-pointer"><i class="fas fa-comment-alt"></i> 50 Comments</span>
+            <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold cursor-pointer"><i class="fas fa-comment-alt"></i> {{$post->numberOfComments()}} Comments</span>
             <a href="#">
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-share"></i> Share</span>
             </a>
