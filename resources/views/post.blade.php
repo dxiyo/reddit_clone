@@ -33,9 +33,11 @@
                     <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-ellipsis-h"></i></span>
                 </a>
             </div>
+            @auth
+            @livewire('create-comment', ['post' => $post])
+            @endauth
         </div>
     </div>
-    
     <hr class="my-4 w-5/6 mx-auto">
     @livewire('comment', ['comments' => $post->commentsWithUpvotes()/*, 'upvotes' => $post->comments->upvotes*/])
 </div>

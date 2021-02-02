@@ -1,6 +1,6 @@
 @foreach ($comments as $comment)   
-<div class="flex p-3">
-    <a href="/r/{{$comment->user->name}}" class="mr-3">
+<div class="flex p-3 min-w-full">
+    <a href="/user/{{$comment->user->name}}" class="mr-3">
         <img src="{{$comment->user->avatar}}" width="36.4" height="36.4" alt="" class="inline rounded-full">
     </a>
     <div class="flex flex-col">

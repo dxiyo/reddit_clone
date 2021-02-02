@@ -4,7 +4,7 @@ use App\Http\Controllers\FrontPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubredditController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\KarmaController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SubmitController;
 use App\Http\Controllers\UpvoteController;
 use App\Http\Livewire\CreatePost;
@@ -31,6 +31,7 @@ Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
 Route::post('/r/{subreddit}', [SubredditController::class, 'store']);
 
 Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index'])->name('post');
+Route::post('/r/{subreddit}/comments/{post}/submit', [CommentController::class, 'store']);
 Route::get('/submit', SubmitController::class);
 Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
 Route::post('/r/{subreddit}/submit', [PostController::class, 'store']);
