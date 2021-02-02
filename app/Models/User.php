@@ -78,6 +78,8 @@ class User extends Authenticatable
     public function subscribe(Subreddit $subreddit) {
         if(!$this->is_subscribed($subreddit)) {
             $this->subscribed()->save($subreddit);
+        } else {
+            $this->subscribed()->detach($subreddit); // if the user is already subscribed, unsubscibe
         }
     }
 
