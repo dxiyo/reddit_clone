@@ -57,7 +57,7 @@ class Post extends Model
     public function upvote(User $user) {
         // if the user already upvoted, delete upvote record
         if($this->isUpvotedBy($user)) {
-            $this->upvotes()->delete($user);
+            $this->upvotes()->where('user_id', $user->id)->delete($user);
         } else {
             // first checks if the user downvoted the post. if he did, then update record to make it an upvote
             if($this->isDownvotedBy($user)) {
@@ -80,7 +80,7 @@ class Post extends Model
     public function downvote(User $user) {
         // if the user already downvoted the post, delete the record of the upvote model relationship
         if($this->isDownvotedBy($user)) {
-            $this->upvotes()->delete($user);
+            $this->upvotes()->where('user_id', $user->id)->delete($user);
         } else {
             // if the user upvoted the post, update the record so that it's a downvote now
             if($this->isUpvotedBy($user)) {
@@ -110,6 +110,12 @@ class Post extends Model
 
     public function numberOfComments() {
         return $this->comments->count();
+    }
+
+    public function commentsWithUpvotes() {
+        return $this->comments->map(function($comment) {
+            return Comment::withUpvotes()->where(['id' => $comment->id])->get();
+        })->flatten();
     }
 
 }

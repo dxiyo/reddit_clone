@@ -36,6 +36,8 @@ Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
 Route::post('/r/{subreddit}/submit', [PostController::class, 'store']);
 Route::post('/{user}/upvote/{post}', [UpvoteController::class, 'upvote']);
 Route::post('/{user}/downvote/{post}', [UpvoteController::class, 'downvote']);
+Route::post('/{user}/upvote/comment/{comment}', [UpvoteController::class, 'upvoteComment']);
+Route::post('/{user}/downvote/comment/{comment}', [UpvoteController::class, 'downvoteComment']);
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
