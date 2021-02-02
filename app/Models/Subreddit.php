@@ -18,6 +18,13 @@ class Subreddit extends Model
         return $this->hasMany(Post::class);
     }
 
+    // gets the upvotes as part of the ->posts relationship by mapping on each of the posts and then flatten the returned collection to get a clean collection of the subreddits posts with upvotes
+    public function postsWithUpvotes() {
+        return $this->posts->map(function($post) {
+            return Post::withUpvotes()->where(['id' => $post->id])->get();
+        })->flatten();
+    }
+
     public function owner() {
         return $this->belongsTo(User::class, 'user_id'); // laravel assumes the name of the column in the database is "function name " + "_id". and it's 'user_id' not 'owner_id' 
     }
