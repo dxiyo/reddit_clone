@@ -18,7 +18,8 @@
                         <span class="text-xs">909.678 Members</span>
                     </div>
                     <div class="ml-auto">
-                        <x-join-button :subreddit="$subreddit" />
+                        {{-- <x-join-button :subreddit="$subreddit" /> --}}
+                        @livewire('join-button', ['subreddit' => $subreddit])
                     </div>
                 </div>
             @endforeach

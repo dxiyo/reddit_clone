@@ -86,4 +86,8 @@ class User extends Authenticatable
     public function is_subscribed(Subreddit $subreddit) {
         return  count($this->subscribed()->where(['name' => $subreddit->name])->get()) > 0;
     }
+    
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
 }
