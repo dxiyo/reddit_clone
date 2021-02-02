@@ -18,6 +18,7 @@
             {{-- THIS IS ALL CODE THAT ONLY WORKS FOR LOGGED IN USERS --}}
             @auth
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <a href="/submit" class="p-1 px-1.5 rounded hover:bg-gray-200"><i class="fas fa-pen"></i></a>
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ml-3 relative">
@@ -88,7 +89,7 @@
                                 </span>
                             @endif
                         </x-slot>
-
+                        
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
@@ -121,7 +122,7 @@
                     </x-jet-dropdown>
                 </div>
             </div>
-
+            
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -131,6 +132,7 @@
                     </svg>
                 </button>
             </div>
+            
             @else
             {{-- IF THE USER IS NOT LOGGED IN. HE'LL GET THIS INSTEAD --}}
             <div class="my-auto">

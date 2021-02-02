@@ -29,9 +29,7 @@ class PostTest extends TestCase
     public function test_post_can_be_visited()
     {
         $post = Post::factory()->create();
-        $response = $this->get("/r/$post->subreddit_name/comments/$post->title");
-
-        $response->assertStatus(200);
+        $response = $this->get("/r/$post->subreddit_name/comments/$post->title")->assertStatus(200);
     }
 
     public function test_user_who_created_post_can_be_viewed() 
