@@ -62,6 +62,10 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function getAvatarAttribute() {
+        return 'https://i.pravatar.cc/150?u=' . $this->email;
+    }
+
     public function posts() {
         return $this->hasMany(Post::class);
     }
