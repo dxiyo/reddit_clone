@@ -39,6 +39,8 @@
         </div>
     </div>
     <hr class="my-4 w-5/6 mx-auto">
-    @livewire('comment', ['comments' => $post->commentsWithUpvotes()/*, 'upvotes' => $post->comments->upvotes*/])
+    <div class="">
+        @livewire('comment', ['comments' => $post->commentsWithUpvotes()])
+    </div>
 </div>
 @endsection

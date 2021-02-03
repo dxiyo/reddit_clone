@@ -97,5 +97,24 @@ class Comment extends Model
             'comments.id'
         );
     }
+
+    public function replies() {
+        return $this->belongsToMany(Comment::class, 'reply', 'comment_id', 'replying_comment_id')->withTimestamps();
+    }
+
+    public function repliesWithUpvotes() {
+        return $this->replies->map(function($comment) {
+            return Comment::withUpvotes()->where(['id' => $comment->id])->get();
+        })->flatten();
+    }
+
+    public function hasReplies() {
+        return (bool) $this->replies->count();
+    }
+
+    public function reply(Comment $comment) {
+        $this->replies()->save($comment);
+    }
+    
     
 }
