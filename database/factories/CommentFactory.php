@@ -25,7 +25,8 @@ class CommentFactory extends Factory
     {
         return [
             'user_id' => User::factory()->create(),
-            'post_id' => Post::factory()->create(),
+            'commentable_id' => Post::factory()->create(),
+            'commentable_type' => 'App\Models\Post',
             'body' => $this->faker->sentence()
         ];
     }

@@ -32,6 +32,7 @@ Route::post('/r/{subreddit}', [SubredditController::class, 'store']);
 
 Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index'])->name('post');
 Route::post('/r/{subreddit}/comments/{post}/submit', [CommentController::class, 'store']);
+Route::post('/{comment}/reply', [CommentController::class, 'storeReply']);
 Route::get('/submit', SubmitController::class);
 Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
 Route::post('/r/{subreddit}/submit', [PostController::class, 'store']);

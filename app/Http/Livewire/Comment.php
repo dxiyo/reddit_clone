@@ -6,17 +6,17 @@ use Livewire\Component;
 
 class Comment extends Component
 {
-    public $comments;
-    public $more = 'hidden';
+    public $comment;
+    public $reply = 'hidden';
     public $hidden = true;
 
-    public function toggleMore() {
+    public function toggleReply() {
         if($this->hidden) {
-            !$this->hidden;
-            $this->more = 'inline';
+            $this->hidden = false;
+            $this->reply = 'block';
         } else {
-            !$this->hidden;
-            $this->more = 'hidden';
+            $this->hidden = true;
+            $this->reply = 'hidden';
         }
     }
     public function render()

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Subreddit;
 use App\Models\User;
-use App\Models\PostUpvotes;
 use App\Models\Upvote;
+use App\Models\Comment;
 class Post extends Model
 {
     protected $guarded = [];
@@ -104,8 +104,12 @@ class Post extends Model
         );
     }
 
+    // public function comments() {
+    //     return $this->hasMany(Comment::class);
+    // }
+
     public function comments() {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function numberOfComments() {

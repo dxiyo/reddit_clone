@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\User;
+use App\Models\Post;
 
 class Comment extends Model
 {
@@ -31,9 +33,9 @@ class Comment extends Model
         }
     }
 
-    public function post() {
-        return $this->belongsTo(Post::class);
-    }
+    // public function post() {
+    //     return $this->belongsTo(Post::class);
+    // }
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -98,13 +100,17 @@ class Comment extends Model
         );
     }
 
+    public function commentable() {
+        return $this->morphTo();
+    }
+
     public function replies() {
-        return $this->belongsToMany(Comment::class, 'reply', 'comment_id', 'replying_comment_id')->withTimestamps();
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function repliesWithUpvotes() {
-        return $this->replies->map(function($comment) {
-            return Comment::withUpvotes()->where(['id' => $comment->id])->get();
+        return $this->replies->map(function($reply) {
+            return Comment::withUpvotes()->where(['id' => $reply->id])->get();
         })->flatten();
     }
 

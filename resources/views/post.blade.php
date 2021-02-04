@@ -40,7 +40,10 @@
     </div>
     <hr class="my-4 w-5/6 mx-auto">
     <div class="">
-        @livewire('comment', ['comments' => $post->commentsWithUpvotes()])
+        @foreach ($post->commentsWithUpvotes() as $comment)
+            @livewire('comment', ['comment' => $comment], key($comment->id))
+            
+        @endforeach
     </div>
 </div>
 @endsection

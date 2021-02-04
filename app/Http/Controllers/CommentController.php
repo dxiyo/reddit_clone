@@ -17,7 +17,24 @@ class CommentController extends Controller
 
         Comment::create([
             'user_id' => auth()->user()->id,
-            'post_id' => $post->id,
+            'commentable_id' => $post->id,
+            'commentable_type' => 'App\Models\Post',
+            'body' => $request->comment
+        ]);
+
+        return back();
+    }
+    
+    public function storeReply(Request $request, Comment $comment)
+    {
+        $validation = $request->validate([
+            'comment' => 'required'
+        ]);
+
+        Comment::create([
+            'user_id' => auth()->user()->id,
+            'commentable_id' => $comment->id,
+            'commentable_type' => 'App\Models\Comment',
             'body' => $request->comment
         ]);
 

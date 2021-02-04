@@ -23,7 +23,7 @@ class SubredditFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique($reset = true)->word,
+            'name' => $this->faker->lexify(),
             'user_id' => User::factory()->create(),
             'description' => $this->faker->sentence,
             'rules' => json_encode($this->faker->sentences)
