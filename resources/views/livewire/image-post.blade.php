@@ -1,9 +1,3 @@
-@extends('layouts.subreddit')
-
-@section('content')
-{{-- @if($post instanceof \App\Models\ImagePost) 
-    @livewire('component', ['user' => $user], key($user->id)) --}}
-
 <div class="bg-white border border-gray-300 rounded">
 
     <div class="flex">
@@ -24,11 +18,7 @@
             {{-- POST TITLE --}}
             <h3 class="font-bold text-xl mt-2 mb-4">{{$post->title}}</h3>
             {{-- IF THIS IS AN IMAGE. USE AN IMG TAG, ELSE USE A <P> TAG TO SHOW THE TEXT OF THE POST --}}
-            @if($post instanceof \App\Models\ImagePost) 
             <img src="{{$post->path}}" alt="">
-            @else
-            <p>{{$post->body}}</p>
-            @endif
             <div>
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold cursor-pointer"><i class="fas fa-comment-alt"></i> {{$post->numberOfComments()}} Comments</span>
                 <a href="#">
@@ -54,4 +44,3 @@
         @endforeach
     </div>
 </div>
-@endsection

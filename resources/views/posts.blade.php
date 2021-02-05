@@ -14,16 +14,20 @@
             @endif
             Posted by <span class="hover:underline">u/{{$post->user->name}}</span> 
             {{-- POSTED X AGO --}}
-            <a href="{{route('post', ['postTitle' => $post->title, 'subreddit' => $post->subreddit_name])}}">
+            <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name])}}">
                 <span class="hover:underline">{{ $post->created}}</span>
             </a>
         </span>
         {{-- POST TITLE --}}
-        <a href="{{route('post', ['postTitle' => $post->title, 'subreddit' => $post->subreddit_name])}}">
+        <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name])}}">
             <h3 class="font-bold text-xl mt-2">{{$post->title}}</h3>
         </a>
+        {{-- IF IT'S AN IMAGE, PUT THE IMAGE IN --}}
+        @if ($post instanceof \App\Models\ImagePost)
+            <img src="{{$post->path}}" alt="">
+        @endif
         <div>
-            <a href="{{route('post', ['postTitle' => $post->title, 'subreddit' => $post->subreddit_name])}}">
+            <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name])}}">
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-comment-alt"></i> {{$post->numberOfComments()}} Comments</span>
             </a>
             <a href="#">

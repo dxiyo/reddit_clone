@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Post;
+use App\Models\ImagePost;
 use App\Models\Subreddit;
 use App\Models\Comment;
 use App\Models\Reply;
@@ -70,6 +71,10 @@ class User extends Authenticatable
 
     public function posts() {
         return $this->hasMany(Post::class);
+    }
+
+    public function image_posts() {
+        return $this->hasMany(ImagePost::class);
     }
 
     public function subreddits_owned() {

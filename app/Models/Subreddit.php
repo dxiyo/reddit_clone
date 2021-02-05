@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Post;
+use App\Models\ImagePost;
 use App\Models\User;
 class Subreddit extends Model
 {
@@ -18,11 +19,26 @@ class Subreddit extends Model
         return $this->hasMany(Post::class);
     }
 
+    public function image_posts() {
+        return $this->hasMany(ImagePost::class);
+    }
+
     // gets the upvotes as part of the ->posts relationship by mapping on each of the posts and then flatten the returned collection to get a clean collection of the subreddits posts with upvotes
     public function postsWithUpvotes() {
         return $this->posts->map(function($post) {
             return Post::withUpvotes()->where(['id' => $post->id])->get();
         })->flatten();
+    }
+    
+    // gets the upvotes as part of the ->posts relationship by mapping on each of the posts and then flatten the returned collection to get a clean collection of the subreddits posts with upvotes
+    public function image_postsWithUpvotes() {
+        return $this->image_posts->map(function($post) {
+            return ImagePost::withUpvotes()->where(['id' => $post->id])->get();
+        })->flatten();
+    }
+
+    public function allPosts() {
+        return $this->postsWithUpvotes()->merge($this->image_postsWithUpvotes());
     }
 
     public function owner() {

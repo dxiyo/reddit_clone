@@ -2,6 +2,6 @@
 
  @section('content')
  @include('posts', [
-    'posts' => $subreddit->postsWithUpvotes()
+    'posts' => $subreddit->allPosts()
 ])
  @endsection

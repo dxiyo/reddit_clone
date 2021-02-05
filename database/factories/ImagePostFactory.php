@@ -2,19 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\Post;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Subreddit;
+use App\Models\ImagePost;
 use App\Models\User;
+use App\Models\Subreddit;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostFactory extends Factory
+class ImagePostFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Post::class;
+    protected $model = ImagePost::class;
 
     /**
      * Define the model's default state.
@@ -24,10 +24,10 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory()->create(),
             'subreddit_name' => Subreddit::factory()->create(),
+            'user_id' => User::factory()->create(),
             'title' => $this->faker->sentence,
-            'body' => $this->faker->paragraph,
+            'path' => $this->faker->imageUrl(640, 480, 'animals', true),
         ];
     }
 }

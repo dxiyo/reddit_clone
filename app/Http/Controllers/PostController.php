@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\ImagePost;
 use App\Models\Subreddit;
 
 class PostController extends Controller
 {
-    public function index($subreddit, $postTitle) {
-        $post = Post::withUpvotes()->where(['title'=> $postTitle, 'subreddit_name' => $subreddit])->first();
+    public function index($subreddit, $postTitle, Request $request) {
+
+        switch($request->type) {
+            case "App\Models\Post":
+                $post = Post::withUpvotes()->where(['title'=> $postTitle, 'subreddit_name' => $subreddit])->first();
+                break;
+            case "App\Models\ImagePost":
+                $post = ImagePost::withUpvotes()->where(['title'=> $postTitle, 'subreddit_name' => $subreddit])->first();
+                break;
+        }
+
         return view('post', [
             'post' => $post,
             'subreddit' => $post->subreddit,

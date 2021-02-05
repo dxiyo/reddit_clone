@@ -8,7 +8,9 @@ use App\Models\Subreddit;
 class FrontPageController extends Controller
 {
     public function index() {
-    $posts = Post::withUpvotes()->get();
+    $posts = Subreddit::all()->map(function($sub) {
+        return $sub->allPosts();
+    })->flatten();
     return view('home', [
         'posts' => $posts,
         'subreddits' => Subreddit::take(4)->get()

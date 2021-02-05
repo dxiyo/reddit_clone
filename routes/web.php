@@ -30,7 +30,7 @@ Route::get('/', [FrontPageController::class, 'index'])->name('home');
 Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
 Route::post('/r/{subreddit}', [SubredditController::class, 'store']);
 
-Route::get('/r/{subreddit}/comments/{postTitle}', [PostController::class, 'index'])->name('post');
+Route::get('/r/{subreddit}/comments/{postTitle}/{type}', [PostController::class, 'index'])->name('post');
 Route::post('/r/{subreddit}/comments/{post}/submit', [CommentController::class, 'store']);
 Route::post('/{comment}/reply', [CommentController::class, 'storeReply']);
 Route::get('/submit', SubmitController::class);
