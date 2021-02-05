@@ -8,7 +8,7 @@
 
     <div class="flex">
         {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
-        @livewire('upvotes', ['upvotes' => $upvotes, 'post' => $post])
+        @livewire('upvotes', ['upvotes' => $upvotes, 'post' => $post, 'type' => get_class($post) == "App\Models\Post" ? "text" : "image"])
         <div class="flex flex-col p-2">
             <span class="text-gray-500 text-xs">
                 {{-- If this the homepage. view the name of the subreddit on the post --}}
@@ -25,7 +25,7 @@
             <h3 class="font-bold text-xl mt-2 mb-4">{{$post->title}}</h3>
             {{-- IF THIS IS AN IMAGE. USE AN IMG TAG, ELSE USE A <P> TAG TO SHOW THE TEXT OF THE POST --}}
             @if($post instanceof \App\Models\ImagePost) 
-            <img src="{{$post->path}}" alt="">
+            <img src="{{asset($post->path)}}" class="w-full" alt="">
             @else
             <p>{{$post->body}}</p>
             @endif
@@ -42,7 +42,7 @@
                 </a>
             </div>
             @auth
-            @livewire('create-comment', ['post' => $post])
+            @livewire('create-comment', ['post' => $post, 'type' => get_class($post) == "App\Models\Post" ? "text" : "image"])
             @endauth
         </div>
     </div>

@@ -2,7 +2,7 @@
 <div class="bg-white min-h-24 border border-gray-300 hover:border-gray-500 rounded-lg flex mb-3">
     {{-- UPVOTE AND DOWNVOTE --}}
     {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
-    @livewire('upvotes', ['upvotes' => $post->upvotes ?: 0, 'post' => $post])
+    @livewire('upvotes', ['upvotes' => $post->upvotes ?: 0, 'post' => $post, 'type' => get_class($post) == "App\Models\Post" ? "text" : "image"])
     <div class="flex flex-col p-2">
         <span class="text-gray-500 text-xs">
             @if (isset($inHome)) {{-- If this the homepage. view the name of the subreddit on the post --}}
@@ -14,20 +14,23 @@
             @endif
             Posted by <span class="hover:underline">u/{{$post->user->name}}</span> 
             {{-- POSTED X AGO --}}
-            <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name])}}">
+            <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name, 'id' => $post->id])}}">
                 <span class="hover:underline">{{ $post->created}}</span>
             </a>
         </span>
         {{-- POST TITLE --}}
-        <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name])}}">
+        <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name, 'id' => $post->id])}}">
             <h3 class="font-bold text-xl mt-2">{{$post->title}}</h3>
         </a>
+
         {{-- IF IT'S AN IMAGE, PUT THE IMAGE IN --}}
         @if ($post instanceof \App\Models\ImagePost)
-            <img src="{{$post->path}}" alt="">
+            <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name, 'id' => $post->id])}}">
+                <img src="{{asset($post->path)}}" class="w-full" alt="">
+            </a>
         @endif
         <div>
-            <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name])}}">
+            <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name, 'id' => $post->id])}}">
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-comment-alt"></i> {{$post->numberOfComments()}} Comments</span>
             </a>
             <a href="#">

@@ -20,7 +20,7 @@ class CreateUpvotesTable extends Migration
             $table->boolean('upvoted');
             $table->timestamps();
 
-            $table->unique(['user_id', 'upvoteable_id']);
+            // $table->unique(['user_id', 'upvoteable_id']);
         });
     }
 

@@ -1,5 +1,5 @@
 <div class="w-11/12 mt-8">
-        <form action="/r/{{$post->subreddit->name}}/comments/{{$post->id}}/submit" method="post">
+        <form action="/r/{{$post->subreddit->name}}/comments/{{$post->id}}/submit/{{$type}}" method="post">
             @csrf
             
             <div class="">

@@ -30,16 +30,17 @@ Route::get('/', [FrontPageController::class, 'index'])->name('home');
 Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
 Route::post('/r/{subreddit}', [SubredditController::class, 'store']);
 
-Route::get('/r/{subreddit}/comments/{postTitle}/{type}', [PostController::class, 'index'])->name('post');
-Route::post('/r/{subreddit}/comments/{post}/submit', [CommentController::class, 'store']);
+Route::get('/r/{subreddit}/comments/{postTitle}/{type}/{id}', [PostController::class, 'index'])->name('post');
+Route::post('/r/{subreddit}/comments/{postId}/submit/{type}', [CommentController::class, 'store']);
 Route::post('/{comment}/reply', [CommentController::class, 'storeReply']);
 Route::get('/submit', SubmitController::class);
 Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
-Route::post('/r/{subreddit}/submit', [PostController::class, 'store']);
-Route::post('/{user}/upvote/{post}', [UpvoteController::class, 'upvote']);
-Route::post('/{user}/downvote/{post}', [UpvoteController::class, 'downvote']);
+Route::post('/r/{subreddit}/submit/text', [PostController::class, 'storeText']);
+Route::post('/r/{subreddit}/submit/image', [PostController::class, 'storeImage']);
 Route::post('/{user}/upvote/comment/{comment}', [UpvoteController::class, 'upvoteComment']);
 Route::post('/{user}/downvote/comment/{comment}', [UpvoteController::class, 'downvoteComment']);
+Route::post('/{user}/upvote/{postId}/{type}', [UpvoteController::class, 'upvote']);
+Route::post('/{user}/downvote/{postId}/{type}', [UpvoteController::class, 'downvote']);
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

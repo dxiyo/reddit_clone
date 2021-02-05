@@ -1,6 +1,6 @@
 <div class="w-10 flex flex-col items-center p-2">
     <form 
-        @auth action="/{{auth()->user()->id}}/upvote/{{$post->id}}" method="post" @endauth 
+        @auth action="/{{auth()->user()->id}}/upvote/{{$post->id}}/{{$type}}" method="post" @endauth 
         @guest action="/login" method="get" @endguest
         >
         @csrf
@@ -20,7 +20,7 @@
     </form>
     <span class="font-medium">{{$upvotes}}</span>
     <form 
-        @auth action="/{{auth()->user()->id}}/downvote/{{$post->id}}" method="post" @endauth 
+        @auth action="/{{auth()->user()->id}}/downvote/{{$post->id}}/{{$type}}" method="post" @endauth 
         @guest action="/login" method="get" @endguest
         >
         @csrf
