@@ -1,7 +1,7 @@
  @extends('layouts.subreddit')
 
  @section('content')
- @include('posts', [
+ @include('posts.index', [
     'posts' => $subreddit->allPosts()
 ])
  @endsection

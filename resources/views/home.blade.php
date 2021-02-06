@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-@include('posts', [
+@include('posts.index', [
     'inHome' => true
 ])
 @endsection

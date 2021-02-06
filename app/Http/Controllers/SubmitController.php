@@ -10,7 +10,7 @@ class SubmitController extends Controller
 {
     public function __invoke()
     {
-        return view('create', [
+        return view('create-post', [
             'subreddits' => auth()->user()->subscribed
         ]);
     }

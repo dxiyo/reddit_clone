@@ -9,9 +9,13 @@ class SubredditController extends Controller
 {
     public function index($subreddit) {
         
-        return view('subreddit', [
+        return view('subreddits.index', [
             'subreddit' => Subreddit::where('name', $subreddit)->first()
         ]);
+    }
+    
+    public function create() {
+        return view('subreddits.create');
     }
 
     public function store(Subreddit $subreddit) {

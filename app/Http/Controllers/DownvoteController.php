@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ImagePost;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
 
-
-class UpvoteController extends Controller
+class DownvoteController extends Controller
 {
     public function store(User $user, $postId, $type) {
         switch($type){
@@ -19,8 +17,7 @@ class UpvoteController extends Controller
                 $post = ImagePost::where('id', $postId)->first();
                 break;
         }
-        $post->upvote($user);
+        $post->downvote($user);
         return back();
     }
-    
 }

@@ -4,12 +4,14 @@ use App\Http\Controllers\FrontPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubredditController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ImagePostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SubmitController;
 use App\Http\Controllers\UpvoteController;
-use App\Http\Livewire\CreatePost;
-use App\Models\Post;
-use App\Models\Subreddit;
+use App\Http\Controllers\DownvoteController;
+use App\Http\Controllers\UpvoteCommentController;
+use App\Http\Controllers\DownvoteCommentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,18 +31,23 @@ Route::get('/', [FrontPageController::class, 'index'])->name('home');
 
 Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
 Route::post('/r/{subreddit}', [SubredditController::class, 'store']);
+Route::get('/subreddit/create', [SubredditController::class, 'create']);
 
-Route::get('/r/{subreddit}/comments/{postTitle}/{type}/{id}', [PostController::class, 'index'])->name('post');
+Route::get('/r/{subreddit}/comments/{postTitle}/{type}/{id}', [PostController::class, 'show'])->name('post');
+Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
+Route::post('/r/{subreddit}/submit/text', [PostController::class, 'store']);
+Route::post('/r/{subreddit}/submit/image', [ImagePostController::class, 'store']);
+Route::get('/submit', SubmitController::class);
+
+
 Route::post('/r/{subreddit}/comments/{postId}/submit/{type}', [CommentController::class, 'store']);
 Route::post('/{comment}/reply', [CommentController::class, 'storeReply']);
-Route::get('/submit', SubmitController::class);
-Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
-Route::post('/r/{subreddit}/submit/text', [PostController::class, 'storeText']);
-Route::post('/r/{subreddit}/submit/image', [PostController::class, 'storeImage']);
-Route::post('/{user}/upvote/comment/{comment}', [UpvoteController::class, 'upvoteComment']);
-Route::post('/{user}/downvote/comment/{comment}', [UpvoteController::class, 'downvoteComment']);
-Route::post('/{user}/upvote/{postId}/{type}', [UpvoteController::class, 'upvote']);
-Route::post('/{user}/downvote/{postId}/{type}', [UpvoteController::class, 'downvote']);
+
+
+Route::post('/{user}/upvote/comment/{comment}', [UpvoteCommentController::class, 'store']);
+Route::post('/{user}/downvote/comment/{comment}', [DownvoteCommentController::class, 'store']);
+Route::post('/{user}/upvote/{postId}/{type}', [UpvoteController::class, 'store']);
+Route::post('/{user}/downvote/{postId}/{type}', [DownvoteController::class, 'store']);
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
