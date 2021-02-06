@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('nav')
+@include('navigation-menu', ['inSub' => false, 'subreddit' => '']);
+@endsection
+
 @section('content')
 @include('posts', [
     'inHome' => true

@@ -22,7 +22,9 @@
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-200">
-            @livewire('navigation-menu')
+            
+            @yield('nav')
+            
 
             @yield('header')
 

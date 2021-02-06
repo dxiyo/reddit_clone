@@ -18,7 +18,12 @@
             {{-- THIS IS ALL CODE THAT ONLY WORKS FOR LOGGED IN USERS --}}
             @auth
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                {{-- THIS IS THE SUBMIT BUTTON IN THE NAVBAR. IF THE CURRENT VIEW IS IN SUBREDDIT, CHANGE THE LINK ON THE BUTTON --}}
+                @if ($inSub)
+                <a href="/r/{{$subreddit}}/submit" class="p-1 px-1.5 rounded hover:bg-gray-200"><i class="fas fa-pen"></i></a>
+                @else
                 <a href="/submit" class="p-1 px-1.5 rounded hover:bg-gray-200"><i class="fas fa-pen"></i></a>
+                @endif
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ml-3 relative">

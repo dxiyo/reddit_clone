@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('nav')
+@include('navigation-menu', ['inSub' => true, 'subreddit' => $subreddit->name]);
+@endsection
+
 @section('header')
     <header class="flex flex-col">
         <div class="w-full h-24 bg-gray-900"></div>
