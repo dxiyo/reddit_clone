@@ -3,6 +3,7 @@
 use App\Http\Controllers\FrontPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubredditController;
+use App\Http\Controllers\SubscribeSubredditController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ImagePostController;
 use App\Http\Controllers\CommentController;
@@ -30,8 +31,9 @@ Route::get('/', [FrontPageController::class, 'index'])->name('home');
 // });
 
 Route::get('/r/{subreddit}', [SubredditController::class, 'index']);
-Route::post('/r/{subreddit}', [SubredditController::class, 'store']);
-Route::get('/subreddit/create', [SubredditController::class, 'create']);
+Route::post('/r/{subreddit}', [SubscribeSubredditController::class, 'store']);
+Route::get('/subreddits/create', [SubredditController::class, 'create'])->middleware('auth');
+Route::post('/subreddits/create', [SubredditController::class, 'store'])->middleware('auth');
 
 Route::get('/r/{subreddit}/comments/{postTitle}/{type}/{id}', [PostController::class, 'show'])->name('post');
 Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);

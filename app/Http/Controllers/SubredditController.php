@@ -18,12 +18,21 @@ class SubredditController extends Controller
         return view('subreddits.create');
     }
 
-    public function store(Subreddit $subreddit) {
-        $user = $user = Auth::user();
-        $user->subscribe($subreddit);
+    public function store(Request $request) {
+        $request->validate([
+            'name' => 'required',
+        ]);
 
-        return back();
-        // return $subreddit->name;
+        $sub = Subreddit::create([
+                'name' => $request->name,
+                'user_id' => auth()->user()->id,
+                'description' => $request->description,
+                'type' => $request->type
+            ]);
+
+        
+
+        return redirect("/r/{$sub->name}");
     }
     
 }

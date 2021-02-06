@@ -26,6 +26,7 @@ class SubredditFactory extends Factory
             'name' => $this->faker->lexify(),
             'user_id' => User::factory()->create(),
             'description' => $this->faker->sentence,
+            'type' => 'public',
             'rules' => json_encode($this->faker->sentences)
         ];
     }

@@ -20,6 +20,7 @@ class CreateSubredditsTable extends Migration
             ->onDelete('cascade');
             $table->integer('subscribers')->default(0);
             $table->text('description')->nullable();
+            $table->string('type')->nullable();
             $table->json('rules')->nullable();
             $table->timestamps();
 

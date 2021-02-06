@@ -57,12 +57,14 @@
     </div>
     <div class="p-3">
         <ol class="list-decimal">
+            @if (isset($subreddit->rulesArr))
             @foreach ($subreddit->rulesArr as $rule)
                 @livewire('showmore', ['rule' => $rule])
                 @if ($loop->last == false)
                     <hr class="w-full">
                 @endif
             @endforeach
+            @endif
         </ol>
     </div>
 </div>
