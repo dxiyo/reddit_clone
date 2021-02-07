@@ -28,7 +28,7 @@ class SubredditController extends Controller
                 'user_id' => auth()->user()->id,
                 'description' => $request->description,
                 'type' => $request->type
-            ]);
+        ]);
 
         
 

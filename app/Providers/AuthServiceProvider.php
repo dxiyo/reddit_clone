@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // this is used to determine if the user can do a certain thing
+        Gate::before(function ($user, $ability) {
+            return $user->abilities()->contains($ability);
+        });
     }
 }

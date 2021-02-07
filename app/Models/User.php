@@ -14,6 +14,7 @@ use App\Models\ImagePost;
 use App\Models\Subreddit;
 use App\Models\Comment;
 use App\Models\Reply;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -104,5 +105,17 @@ class User extends Authenticatable
 
     public function replies() {
         return $this->hasMany(Reply::class);
+    }
+
+    public function roles() {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function assignRole(Role $role) {
+        $this->roles()->sync($role, false); // if i use save(), it will return an error when assigning the same role to the same user. this will just update the record. false means that nothing will be dropped. 
+    }
+
+    public function abilities() {
+        return $this->roles->map->abilities->flatten()->pluck('name')->unique();
     }
 }
