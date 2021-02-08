@@ -1,13 +1,11 @@
-{{--  LOOP OVER ALL POSTS  --}}
-@foreach ($posts as $post)    
-{{--  IF THE CURRENT POST IS PINNED, SKIP IT.  --}}
-@continue($post->pinned)
-
-<div class="bg-white min-h-24 border border-gray-300 hover:border-gray-500 rounded-lg flex mb-3">
+{{--  SHOWS PINNED POSTS  --}}
+@foreach ($pinned as $post)
+<div class="bg-white min-h-24 border border-green-300 hover:border-green-500 rounded-lg flex mb-3">
     {{-- UPVOTE AND DOWNVOTE --}}
     {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
     @livewire('upvotes', ['upvotes' => $post->upvotes ?: 0, 'post' => $post, 'type' => get_class($post) == "App\Models\Post" ? "text" : "image"])
     <div class="flex flex-col p-2">
+        <span class="text-gray-500 text-xs font-bold mb-2"><i class="fas fa-thumbtack text-green-300 mr-0.5"></i> PINNED BY MODERATORS</span>
         <span class="text-gray-500 text-xs">
             @if (isset($inHome)) {{-- If this the homepage. view the name of the subreddit on the post --}}
                 <a href="/r/{{$post->subreddit->name}}" class="">
@@ -64,7 +62,7 @@
                 @csrf
                 @method('PUT')
                 <button type="submit">
-                    <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-thumbtack"></i> Pin Post</span>
+                    <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-thumbtack"></i> Unpin Post</span>
                 </button>
             </form>
             @endcan
@@ -73,5 +71,5 @@
             </a>
         </div>
     </div>
-</div>
+</div>    
 @endforeach

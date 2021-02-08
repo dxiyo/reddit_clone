@@ -54,6 +54,26 @@ class PostController extends Controller
         
     }
 
+    public function update($subreddit, $postTitle, Request $request, $type, $id) {
+        switch($request->type) {
+            case "App\Models\Post":
+                $post = Post::withUpvotes()->where(['title'=> $postTitle, 'subreddit_name' => $subreddit, 'id' => $id])->first();
+                break;
+            case "App\Models\ImagePost":
+                $post = ImagePost::withUpvotes()->where(['title'=> $postTitle, 'subreddit_name' => $subreddit, 'id' => $id])->first();
+                break;
+        }
+
+        if($post->pinned) {
+            $post->update(['pinned' => false]);
+        } else {
+            $post->update(['pinned' => true]);
+        }
+
+
+        return redirect()->to('/r/' . $subreddit);
+    }
+
     public function delete($subreddit, $postTitle, Request $request, $type, $id) {
         switch($request->type) {
             case "App\Models\Post":

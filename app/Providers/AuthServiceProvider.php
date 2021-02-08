@@ -39,5 +39,11 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
+        Gate::define('pin_post', function(User $user, $post) {
+            if($post->subreddit->isModeratedBy($user)) {
+                return true;
+            }
+        });
+
     }
 }

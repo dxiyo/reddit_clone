@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\ImagePost;
 use App\Models\User;
 class Subreddit extends Model
@@ -37,12 +38,30 @@ class Subreddit extends Model
         })->flatten();
     }
 
+    public function pinnedPosts() {
+        $posts = $this->posts->map(function($post) {
+            return Post::withUpvotes()->where(['id' => $post->id, 'pinned' => true])->get();
+        })->flatten();
+
+        $imagePosts = $this->image_posts->map(function($post) {
+            return ImagePost::withUpvotes()->where(['id' => $post->id, 'pinned' => true])->get();
+        })->flatten();
+
+        return $posts->merge($imagePosts);
+    }
+
     public function allPosts() {
         return $this->postsWithUpvotes()->merge($this->image_postsWithUpvotes());
     }
 
     public function owner() {
         return $this->belongsTo(User::class, 'user_id'); // laravel assumes the name of the column in the database is "function name " + "_id". and it's 'user_id' not 'owner_id' 
+    }
+
+    // determines if the user is a moderator
+    public function makeModerator(User $user) {
+        $role = Role::where(['name' => $this->name . "_moderator"])->first();
+        $user->assignRole($role);
     }
 
     // determines if the user is a moderator
