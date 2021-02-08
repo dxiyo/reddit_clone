@@ -36,15 +36,15 @@
             <a href="#">
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-share"></i> Share</span>
             </a>
-            @can('approve_post')
-            <a href="#">
-                <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-check"></i> Approve</span>
-            </a>
-            @endcan
             <a href="#">
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-bookmark"></i> Save</span>
             </a>
-            @can('delete_post')
+            @if ($post->subreddit->isModeratedBy(auth()->user())) {{-- if not in the homepage. show this --}}
+            <a href="#">
+                <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-check"></i> Approve</span>
+            </a>
+            @endif
+            @can('delete_post', $post)
             <a href="#">
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-times"></i> Delete Post</span>
             </a>

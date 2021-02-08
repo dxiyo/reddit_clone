@@ -33,7 +33,7 @@ class ImagePostController extends Controller
             'path' => $url
         ]);
         Session::flash('success', 'Success!');
-        return redirect('/r/' . $subreddit->name . '/comments/' . $post->title . '/' . 'App\Models\ImagePost');
+        return redirect('/r/' . $subreddit->name . '/comments/' . $post->title . '/' . 'App%5CModels%5CImagePost/'  . $post->id);
 
     }
 }

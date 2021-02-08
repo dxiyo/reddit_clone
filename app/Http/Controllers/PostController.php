@@ -32,7 +32,7 @@ class PostController extends Controller
 
     public function create($subreddit) {
         return view('posts.create', [
-            'subreddits' => auth()->user()->subscribed,
+            'subreddits' => Subreddit::all(),
             'subreddit' => Subreddit::where('name', $subreddit)->first()
         ]);
     }
@@ -50,7 +50,7 @@ class PostController extends Controller
             'body' => $request->body
         ]);
         
-        return redirect()->to('/r/' . $subreddit->name . '/comments/' . $post->title . '/' . 'App\Models\Post');
+        return redirect()->to('/r/' . $subreddit->name . '/comments/' . $post->title . '/' . 'App%5CModels%5CPost/' . $post->id);
         
     }
     

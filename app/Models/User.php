@@ -78,6 +78,11 @@ class User extends Authenticatable
         return $this->hasMany(ImagePost::class);
     }
 
+    // WITHOUT THE UPVOTES. USING CONTAINS ON THIS WILL WORK WITH A NORMAL POST OR IMAGE POST THAT DOESNT HAVE THE 'WITHUPVOTES' SCOPE
+    public function allPosts() {
+        return $this->posts->merge($this->image_posts);
+    }
+
     public function subreddits_owned() {
         return $this->hasMany(Subreddit::class);
     }

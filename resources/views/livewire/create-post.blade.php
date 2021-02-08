@@ -6,8 +6,9 @@
             @foreach ($subreddits as $subreddit)
                 <option 
                 value="{{$subreddit->name}}" 
-                wire:key="{{$subreddit->name}}" @if ($currentSub == $subreddit->name) selected @endif>
-                  <img src="{{$subreddit->logo}}" alt="" class="w-5 h-5 rounded-full border border-dashed"> {{$subreddit->name}}
+                wire:key="{{$subreddit->name}}"
+                 @if ($currentSub == $subreddit->name) selected @endif>
+                  {{$subreddit->name}}
                 </option>
             @endforeach
         </select>
