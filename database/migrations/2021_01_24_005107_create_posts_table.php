@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('subreddit_name');
             $table->string('title');
             $table->text('body');
+            $table->boolean('pinned')->default(0);
             $table->timestamps();
 
             $table->foreign('subreddit_name')->references('name')->on('subreddits')->onDelete('cascade');

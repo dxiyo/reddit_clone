@@ -37,6 +37,15 @@
                 <a href="#">
                     <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-bookmark"></i> Save</span>
                 </a>
+                @can('delete_post', $post)
+                    <form action="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name, 'id' => $post->id])}}" method="post" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">
+                            <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-times"></i> Delete Post</span>
+                        </button>
+                    </form>
+                @endcan
                 <a href="#">
                     <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-ellipsis-h"></i></span>
                 </a>

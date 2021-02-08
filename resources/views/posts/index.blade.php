@@ -39,15 +39,21 @@
             <a href="#">
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-bookmark"></i> Save</span>
             </a>
-            @if ($post->subreddit->isModeratedBy(auth()->user())) {{-- if not in the homepage. show this --}}
-            <a href="#">
-                <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-check"></i> Approve</span>
-            </a>
-            @endif
+            @auth
+                @if ($post->subreddit->isModeratedBy(auth()->user())) {{-- if not in the homepage. show this --}}
+                <a href="#">
+                    <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-check"></i> Approve</span>
+                </a>
+                @endif    
+            @endauth
             @can('delete_post', $post)
-            <a href="#">
-                <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-times"></i> Delete Post</span>
-            </a>
+            <form action="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name, 'id' => $post->id])}}" method="post" class="inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit">
+                    <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-times"></i> Delete Post</span>
+                </button>
+            </form>
             @endcan
             <a href="#">
                 <span class="p-1 mt-2 hover:bg-gray-200 text-gray-500 text-xs font-bold"><i class="fas fa-ellipsis-h"></i></span>

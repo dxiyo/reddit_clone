@@ -53,5 +53,20 @@ class PostController extends Controller
         return redirect()->to('/r/' . $subreddit->name . '/comments/' . $post->title . '/' . 'App%5CModels%5CPost/' . $post->id);
         
     }
+
+    public function delete($subreddit, $postTitle, Request $request, $type, $id) {
+        switch($request->type) {
+            case "App\Models\Post":
+                $post = Post::withUpvotes()->where(['title'=> $postTitle, 'subreddit_name' => $subreddit, 'id' => $id])->first();
+                $post->delete();
+                break;
+            case "App\Models\ImagePost":
+                $post = ImagePost::withUpvotes()->where(['title'=> $postTitle, 'subreddit_name' => $subreddit, 'id' => $id])->first();
+                $post->delete();
+                break;
+        }
+
+        return redirect()->to('/r/' . $subreddit);
+    }
     
 }

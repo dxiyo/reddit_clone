@@ -36,6 +36,7 @@ Route::get('/subreddits/create', [SubredditController::class, 'create'])->middle
 Route::post('/subreddits/create', [SubredditController::class, 'store'])->middleware('auth');
 
 Route::get('/r/{subreddit}/comments/{postTitle}/{type}/{id}', [PostController::class, 'show'])->name('post');
+Route::delete('/r/{subreddit}/comments/{postTitle}/{type}/{id}', [PostController::class, 'delete'])->name('post');
 Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
 Route::post('/r/{subreddit}/submit/text', [PostController::class, 'store']);
 Route::post('/r/{subreddit}/submit/image', [ImagePostController::class, 'store']);
