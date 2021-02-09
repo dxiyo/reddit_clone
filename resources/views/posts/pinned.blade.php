@@ -1,6 +1,6 @@
 {{--  SHOWS PINNED POSTS  --}}
 @foreach ($pinned as $post)
-<div class="bg-white min-h-24 border border-green-300 hover:border-green-500 rounded-lg flex mb-3">
+<div class="bg-white min-h-24 border-2 border-green-300 hover:border-green-500 rounded-lg flex mb-3">
     {{-- UPVOTE AND DOWNVOTE --}}
     {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
     @livewire('upvotes', ['upvotes' => $post->upvotes ?: 0, 'post' => $post, 'type' => get_class($post) == "App\Models\Post" ? "text" : "image"])
@@ -14,7 +14,7 @@
                 </a>
                 <span class="text-black font-thin"> • </span>
             @endif
-            Posted by <span class="hover:underline">u/{{$post->user->name}}</span> 
+            Posted by <a href="/user/{{$post->user->name}}"><span class="hover:underline">u/{{$post->user->name}}</span> </a>
             {{-- POSTED X AGO --}}
             <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name, 'id' => $post->id])}}">
                 <span class="hover:underline">{{ $post->created}}</span>

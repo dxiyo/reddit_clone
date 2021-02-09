@@ -70,6 +70,12 @@ class User extends Authenticatable
         return 'https://i.pravatar.cc/150?u=' . $this->email;
     }
 
+    // gets the time of creation of the user in a formatted way
+    public function getCreatedAttribute() {
+        $time = date_timestamp_get($this->created_at);
+        return date("M d, Y", $time);
+    }
+
     public function posts() {
         return $this->hasMany(Post::class);
     }
@@ -82,6 +88,29 @@ class User extends Authenticatable
     public function allPosts() {
         return $this->posts->merge($this->image_posts);
     }
+
+    public function allPostsWithUpvotes() {
+        $posts = $this->posts->map(function($post) {
+            return Post::withUpvotes()->where(['id' => $post->id])->get();
+        })->flatten();
+
+        $imagePosts = $this->image_posts->map(function($post) {
+            return ImagePost::withUpvotes()->where(['id' => $post->id])->get();
+        })->flatten();
+
+        return $posts->merge($imagePosts);
+    }
+
+    public function karma() {
+        $upvotes = 0;
+        $this->allPostsWithUpvotes()->map(function($post) {
+            global $upvotes;
+            $upvotes = $upvotes + $post->upvotes;
+        });
+
+        return $upvotes;
+    }
+
 
     public function subreddits_owned() {
         return $this->hasMany(Subreddit::class);

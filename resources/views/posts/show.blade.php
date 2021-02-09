@@ -17,7 +17,7 @@
                     <span class="text-xs text-black font-bold hover:underline">/r/{{$post->subreddit->name}}</span> 
                 </a>
                 <span class="text-black font-thin"> • </span>
-                Posted by <span class="hover:underline">u/{{$post->user->name}}</span> 
+                Posted by <a href="/user/{{$post->user->name}}"><span class="hover:underline">u/{{$post->user->name}}</span> </a>
                 {{-- POSTED X AGO --}}
                 <span class="hover:underline">{{ $post->created}}</span>
             </span>

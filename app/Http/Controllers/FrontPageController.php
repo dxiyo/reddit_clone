@@ -11,7 +11,8 @@ class FrontPageController extends Controller
     $posts = Subreddit::all()->map->allPosts()->sortByDesc('created_at')->flatten();
     return view('home', [
         'posts' => $posts,
-        'subreddits' => Subreddit::take(4)->get()
+        'subreddits' => Subreddit::take(4)->get(),
+        'pinned' => Subreddit::all()->map->pinnedPosts()->flatten()
     ]);
     }
 }

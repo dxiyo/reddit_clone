@@ -16,7 +16,7 @@
                 </a>
                 <span class="text-black font-thin"> • </span>
             @endif
-            Posted by <span class="hover:underline">u/{{$post->user->name}}</span> 
+            Posted by <a href="/user/{{$post->user->name}}"><span class="hover:underline">u/{{$post->user->name}}</span> </a>
             {{-- POSTED X AGO --}}
             <a href="{{route('post', ['postTitle' => $post->title, 'type' => get_class($post), 'subreddit' => $post->subreddit_name, 'id' => $post->id])}}">
                 <span class="hover:underline">{{ $post->created}}</span>

@@ -12,6 +12,7 @@ use App\Http\Controllers\UpvoteController;
 use App\Http\Controllers\DownvoteController;
 use App\Http\Controllers\UpvoteCommentController;
 use App\Http\Controllers\DownvoteCommentController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,12 @@ Route::post('/{user}/downvote/comment/{comment}', [DownvoteCommentController::cl
 Route::post('/{user}/upvote/{postId}/{type}', [UpvoteController::class, 'store']);
 Route::post('/{user}/downvote/{postId}/{type}', [DownvoteController::class, 'store']);
 
+
+Route::get('/user/{user}', function($user) {
+    return view('profile.show', [
+        'user' => User::whereName($user)->first()
+    ]);
+})->name('profile.show');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
