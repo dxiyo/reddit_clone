@@ -4,7 +4,9 @@
  @include('posts.pinned', [
      'pinned' => $subreddit->pinnedPosts()
  ])
+ @foreach ($subreddit->allPosts() as $post)
  @include('posts.index', [
-    'posts' => $subreddit->allPosts()
-])
+    'pinned' => 0
+])   
+ @endforeach
  @endsection

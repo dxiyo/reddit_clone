@@ -33,13 +33,14 @@ class Comment extends Model
         }
     }
 
-    // public function post() {
-    //     return $this->belongsTo(Post::class);
-    // }
+    public function commentable() {
+        return $this->morphTo();
+    }
 
     public function user() {
         return $this->belongsTo(User::class);
     }
+    
     // Establishes a polymorphic relationship with the upvote model
     public function upvotes() {
         return $this->morphMany(Upvote::class, 'upvoteable');
@@ -98,10 +99,6 @@ class Comment extends Model
             'upvotes.upvoteable_id',
             'comments.id'
         );
-    }
-
-    public function commentable() {
-        return $this->morphTo();
     }
 
     public function replies() {

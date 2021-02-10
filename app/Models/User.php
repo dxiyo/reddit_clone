@@ -91,26 +91,32 @@ class User extends Authenticatable
 
     public function allPostsWithUpvotes() {
         $posts = $this->posts->map(function($post) {
-            return Post::withUpvotes()->where(['id' => $post->id])->get();
+            return Post::withUpvotes()->where(['id' => $post->id, 'pinned' => false])->get();
         })->flatten();
 
         $imagePosts = $this->image_posts->map(function($post) {
-            return ImagePost::withUpvotes()->where(['id' => $post->id])->get();
+            return ImagePost::withUpvotes()->where(['id' => $post->id, 'pinned' => false])->get();
         })->flatten();
 
         return $posts->merge($imagePosts);
     }
 
-    public function karma() {
-        $upvotes = 0;
-        $this->allPostsWithUpvotes()->map(function($post) {
-            global $upvotes;
-            $upvotes = $upvotes + $post->upvotes;
-        });
+    public function pinnedPostsWithUpvotes() {
+        $posts = $this->posts->map(function($post) {
+            return Post::withUpvotes()->where(['id' => $post->id, 'pinned' => false])->get();
+        })->flatten();
 
-        return $upvotes;
+        $imagePosts = $this->image_posts->map(function($post) {
+            return ImagePost::withUpvotes()->where(['id' => $post->id, 'pinned' => false])->get();
+        })->flatten();
+
+        return $posts->merge($imagePosts);
     }
 
+    // gets the sum of all the upvotes
+    public function karma() {
+        return $this->allPostsWithUpvotes()->map->upvotes->sum();
+    }
 
     public function subreddits_owned() {
         return $this->hasMany(Subreddit::class);
@@ -135,6 +141,22 @@ class User extends Authenticatable
     
     public function comments() {
         return $this->hasMany(Comment::class);
+    }
+
+    // all comments. replies included
+    public function commentsUpvotes() {
+        $comments = $this->comments->map(function($comment) {
+            return Comment::withUpvotes()->where(['id' => $comment->id])->get();
+        })->flatten();
+        
+        $replies = $this->comments->map->repliesWithUpvotes()->flatten();
+        
+        return $comments->merge($replies);
+    }
+
+    // all posts and comments with upvotes even
+    public function allContent() {
+        return $this->allPostsWithUpvotes()->merge($this->commentsUpvotes())->sortBy('created_at')->flatten();
     }
 
     public function replies() {

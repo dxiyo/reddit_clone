@@ -1,8 +1,3 @@
-{{--  LOOP OVER ALL POSTS  --}}
-@foreach ($posts as $post)    
-{{--  IF THE CURRENT POST IS PINNED, SKIP IT.  --}}
-@continue($post->pinned)
-
 <div class="bg-white min-h-24 border border-gray-300 hover:border-gray-500 rounded-lg flex mb-3">
     {{-- UPVOTE AND DOWNVOTE --}}
     {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
@@ -74,4 +69,3 @@
         </div>
     </div>
 </div>
-@endforeach

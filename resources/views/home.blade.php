@@ -5,9 +5,11 @@
 @endsection
 
 @section('content')
+@foreach ($posts as $post)
 @include('posts.index', [
     'inHome' => true
-])
+])  
+@endforeach
 @endsection
 
 @section('sidebar')

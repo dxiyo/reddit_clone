@@ -1,49 +1,3 @@
-{{-- <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
-
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            @if (Laravel\Fortify\Features::canUpdateProfileInformation())
-                @livewire('profile.update-profile-information-form')
-
-                <x-jet-section-border />
-            @endif
-
-            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.update-password-form')
-                </div>
-
-                <x-jet-section-border />
-            @endif
-
-            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.two-factor-authentication-form')
-                </div>
-
-                <x-jet-section-border />
-            @endif
-
-            <div class="mt-10 sm:mt-0">
-                @livewire('profile.logout-other-browser-sessions-form')
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
-                <x-jet-section-border />
-
-                <div class="mt-10 sm:mt-0">
-                    @livewire('profile.delete-user-form')
-                </div>
-            @endif
-        </div>
-    </div>
-</x-app-layout> --}}
-
 @extends('layouts.app')
 
 @section('nav')
@@ -54,15 +8,15 @@
 <div class="bg-white">
     <div class="mx-auto w-9/12">
         <div class="flex justify-between py-2">
-            <a href="#" class="hover:text-blue-600">OVERVIEW</a>
-            <a href="#" class="hover:text-blue-600">POSTS</a>
-            <a href="#" class="hover:text-blue-600">COMMENTS</a>
-            <a href="#" class="hover:text-blue-600">SAVED</a>
-            <a href="#" class="hover:text-blue-600">HIDDEN</a>
-            <a href="#" class="hover:text-blue-600">UPVOTED</a>
-            <a href="#" class="hover:text-blue-600">DOWNVOTED</a>
-            <a href="#" class="hover:text-blue-600">AWARDS RECEIVED</a>
-            <a href="#" class="hover:text-blue-600">AWARDS GIVEN</a>
+            <a href="/user/{{$user->name}}" class="hover:text-blue-600 {{$inOverview}}">OVERVIEW</a>
+            <a href="/user/{{$user->name}}/posts" class="hover:text-blue-600 {{$inPosts}}">POSTS</a>
+            <a href="/user/{{$user->name}}/comments" class="hover:text-blue-600 {{$inComments}}">COMMENTS</a>
+            <a href="/user/{{$user->name}}" class="hover:text-blue-600">SAVED</a>
+            <a href="/user/{{$user->name}}" class="hover:text-blue-600">HIDDEN</a>
+            <a href="/user/{{$user->name}}" class="hover:text-blue-600">UPVOTED</a>
+            <a href="/user/{{$user->name}}" class="hover:text-blue-600">DOWNVOTED</a>
+            <a href="/user/{{$user->name}}" class="hover:text-blue-600">AWARDS RECEIVED</a>
+            <a href="/user/{{$user->name}}" class="hover:text-blue-600">AWARDS GIVEN</a>
         </div>
     </div>
 </div>
@@ -92,6 +46,12 @@
 @endsection
 
 @section('content')
-    @include('posts.pinned', ['pinned' => $user->allPostsWithUpvotes()])
-    @include('posts.index', ['posts' => $user->allPostsWithUpvotes()])
+
+    @foreach ($things as $thing)
+        @if (get_class($thing) == "App\Models\Comment")
+            @livewire('profile-comment', ['comment' => $thing], key($thing->id))
+        @else
+            @include('posts.index', ['post' => $thing, 'pinned' => 1])
+        @endif
+    @endforeach
 @endsection
