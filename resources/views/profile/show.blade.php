@@ -13,8 +13,8 @@
             <a href="/user/{{$user->name}}/comments" class="hover:text-blue-600 {{$inComments}}">COMMENTS</a>
             <a href="/user/{{$user->name}}" class="hover:text-blue-600">SAVED</a>
             <a href="/user/{{$user->name}}" class="hover:text-blue-600">HIDDEN</a>
-            <a href="/user/{{$user->name}}" class="hover:text-blue-600">UPVOTED</a>
-            <a href="/user/{{$user->name}}" class="hover:text-blue-600">DOWNVOTED</a>
+            <a href="/user/{{$user->name}}/upvoted" class="hover:text-blue-600 {{$inUpvoted}}">UPVOTED</a>
+            <a href="/user/{{$user->name}}/downvoted" class="hover:text-blue-600 {{$inDownvoted}}">DOWNVOTED</a>
             <a href="/user/{{$user->name}}" class="hover:text-blue-600">AWARDS RECEIVED</a>
             <a href="/user/{{$user->name}}" class="hover:text-blue-600">AWARDS GIVEN</a>
         </div>

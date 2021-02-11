@@ -118,6 +118,20 @@ class User extends Authenticatable
         return $this->allPostsWithUpvotes()->map->upvotes->sum();
     }
 
+    public function allUpvotes() {
+        $posts = Post::withUpvotes()->get()->filter->isUpvotedBy($this);
+        $comments = Comment::withUpvotes()->get()->filter->isUpvotedBy($this);
+
+        return $posts->merge($comments)->sortByDesc('upvoted_at');
+    }
+
+    public function allDownvotes() {
+        $posts = Post::withUpvotes()->get()->filter->isDownvotedBy($this);
+        $comments = Comment::withUpvotes()->get()->filter->isDownvotedBy($this);
+
+        return $posts->merge($comments)->sortByDesc('upvoted_at');
+    }
+
     public function subreddits_owned() {
         return $this->hasMany(Subreddit::class);
     }

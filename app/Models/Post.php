@@ -97,7 +97,7 @@ class Post extends Model
     // returns the post model with an upvotes column
     public function scopeWithUpvotes(Builder $query) {
         $query->leftJoinSub(
-            "SELECT upvoteable_id, sum(upvotes.upvoted - !upvotes.upvoted) as upvotes from upvotes where upvoteable_type like '%Post' GROUP BY upvoteable_id",
+            "SELECT upvoteable_id, sum(upvotes.upvoted - !upvotes.upvoted) as upvotes, created_at as upvoted_at from upvotes where upvoteable_type like '%Post' GROUP BY upvoteable_id",
             'upvotes',
             'upvotes.upvoteable_id',
             'posts.id'

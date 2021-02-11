@@ -14,7 +14,9 @@ class ProfileController extends Controller
             'things' => $theUser->allContent(),
             'inOverview' => 'text-blue-600 border-b-2 border-blue-600',
             'inComments' => '',
-            'inPosts' => ''
+            'inPosts' => '',
+            'inUpvoted' => '',
+            'inDownvoted' => ''
         ]);
     }
     
@@ -22,6 +24,8 @@ class ProfileController extends Controller
         $theUser = User::whereName($user)->first();
         $inPosts = '';
         $inComments = '';
+        $inUpvoted = '';
+        $inDownvoted = '';
         switch($listItem) {
             case 'posts':
                 $things = $theUser->allPostsWithUpvotes();
@@ -31,13 +35,24 @@ class ProfileController extends Controller
                 $things = $theUser->commentsUpvotes();
                 $inComments = 'text-blue-600 border-b-2 border-blue-600';
                 break;
+            case 'upvoted':
+                $things = $theUser->allUpvotes();
+                $inUpvoted = 'text-blue-600 border-b-2 border-blue-600';
+                break;
+            case 'downvoted':
+                $things = $theUser->allDownvotes();
+                $inDownvoted = 'text-blue-600 border-b-2 border-blue-600';
+                break;
         }
+
         return view('profile.show', [
             'user' => $theUser,
             'things' => $things,
             'inOverview' => '',
             'inPosts' => $inPosts,
-            'inComments' => $inComments
+            'inComments' => $inComments,
+            'inUpvoted' => $inUpvoted,
+            'inDownvoted' => $inDownvoted
 
         ]);
     }

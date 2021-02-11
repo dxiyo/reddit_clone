@@ -94,7 +94,7 @@ class Comment extends Model
 
     public function scopeWithUpvotes(Builder $query) {
         $query->leftJoinSub(
-            "SELECT upvoteable_id, sum(upvotes.upvoted - !upvotes.upvoted) as upvotes from upvotes where upvoteable_type like '%Comment' GROUP BY upvoteable_id",
+            "SELECT upvoteable_id, sum(upvotes.upvoted - !upvotes.upvoted) as upvotes, created_at as upvoted_at from upvotes where upvoteable_type like '%Comment' GROUP BY upvoteable_id",
             'upvotes',
             'upvotes.upvoteable_id',
             'comments.id'
