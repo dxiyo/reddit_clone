@@ -4,23 +4,24 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class Comment extends Component
+class SubredditList extends Component
 {
-    public $comment;
-    public $reply = 'hidden';
+    public $subreddits;
+    public $list = 'hidden';
     public $hidden = true;
 
     public function toggleList() {
         if($this->hidden) {
             $this->hidden = false;
-            $this->reply = 'block';
+            $this->list = 'block';
         } else {
             $this->hidden = true;
-            $this->reply = 'hidden';
+            $this->list = 'hidden';
         }
     }
+
     public function render()
     {
-        return view('livewire.comment');
+        return view('livewire.subreddit-list');
     }
 }

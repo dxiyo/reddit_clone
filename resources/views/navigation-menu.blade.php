@@ -9,7 +9,11 @@
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
-
+                @auth
+                    <div class="self-center ml-4 border border-gray-100 rounded-lg">
+                        @livewire('subreddit-list', ['subreddits' => auth()->user()->subscribed])
+                    </div>  
+                @endauth
                 <!-- Navigation Links -->
                 <div class="mt-3 ml-24 w-3/4">
                     <x-search></x-search>
