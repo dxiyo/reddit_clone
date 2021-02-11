@@ -13,6 +13,7 @@ use App\Http\Controllers\DownvoteController;
 use App\Http\Controllers\UpvoteCommentController;
 use App\Http\Controllers\DownvoteCommentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PopularController;
 use App\Models\User;
 
 /*
@@ -27,6 +28,7 @@ use App\Models\User;
 */
 
 Route::get('/', [FrontPageController::class, 'index'])->name('home');
+Route::get('/popular', [PopularController::class, 'index']);
 
 // Route::middleware('auth')->group(function () {
     
