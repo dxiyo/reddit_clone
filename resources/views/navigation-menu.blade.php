@@ -10,12 +10,12 @@
                     </a>
                 </div>
                 @auth
-                    <div class="self-center ml-4 border border-gray-100 rounded-lg">
+                    <div class="self-center ml-4 mr-2 border border-gray-100 rounded-lg">
                         @livewire('subreddit-list', ['subreddits' => auth()->user()->subscribed])
                     </div>  
                 @endauth
                 <!-- Navigation Links -->
-                <div class="mt-3 ml-24 w-3/4">
+                <div class="mt-3 lg:ml-24 w-3/4">
                     <x-search></x-search>
                 </div>
             </div>

@@ -6,7 +6,7 @@
 
 @section('header')
 <div class="bg-white">
-    <div class="mx-auto w-9/12">
+    <div class="hidden mx-auto w-9/12 lg:block">
         <div class="flex justify-between py-2">
             <a href="/user/{{$user->name}}" class="hover:text-blue-600 {{$inOverview}}">OVERVIEW</a>
             <a href="/user/{{$user->name}}/posts" class="hover:text-blue-600 {{$inPosts}}">POSTS</a>

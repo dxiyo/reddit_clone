@@ -42,10 +42,12 @@ Route::post('/subreddits/create', [SubredditController::class, 'store'])->middle
 Route::get('/r/{subreddit}/comments/{postTitle}/{type}/{id}', [PostController::class, 'show'])->name('post');
 Route::delete('/r/{subreddit}/comments/{postTitle}/{type}/{id}', [PostController::class, 'delete'])->name('post');
 Route::put('/r/{subreddit}/comments/{postTitle}/{type}/{id}', [PostController::class, 'update'])->name('post');
-Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
-Route::post('/r/{subreddit}/submit/text', [PostController::class, 'store']);
-Route::post('/r/{subreddit}/submit/image', [ImagePostController::class, 'store']);
-Route::get('/submit', SubmitController::class);
+Route::middleware(['auth'])->group( function () {
+    Route::get('/r/{subreddit}/submit', [PostController::class, 'create']);
+    Route::post('/r/{subreddit}/submit/text', [PostController::class, 'store']);
+    Route::post('/r/{subreddit}/submit/image', [ImagePostController::class, 'store']);
+    Route::get('/submit', SubmitController::class);
+});
 
 
 Route::post('/r/{subreddit}/comments/{postId}/submit/{type}', [CommentController::class, 'store']);

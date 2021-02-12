@@ -7,6 +7,7 @@ use Livewire\Component;
 class SubredditList extends Component
 {
     public $subreddits;
+    public $subreddit;
     public $list = 'hidden';
     public $hidden = true;
 

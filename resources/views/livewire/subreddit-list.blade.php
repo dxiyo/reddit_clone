@@ -15,15 +15,21 @@
         {{-- if in a subreddit. do this work to properly show the right subreddit name and logo --}}
         @elseif(\Request::is('r/*'))
             <?php
-                $link = request()->url();
-                $link_array = explode('/',$link);
-                $subName = end($link_array); 
-
+                $link = request()->url(); // gets the link
+                $link_array = explode('/r/',$link); // split the link into an array by the /r/ portion of the link
+                $endOfLink = end($link_array); // gets the end of the array. example: /r/subreddit, /r/subreddit/submit
+                if (str_contains($endOfLink, '/')) { // if the slug after /r/ isnt just the name of a subreddit
+                    $endOfLinkArr = explode('/', $endOfLink); // example: subName/submit becomes ['subName', 'submit']
+                    $subName = $endOfLinkArr[0]; // gets the subName from the array
+                } else {
+                    $subName = $endOfLink; // if it's just the subreddit name just take it.
+                }
+                
                 $sub = App\Models\Subreddit::whereName($subName)->first();
-            ?>
+                ?>
             <span class="mx-2">
                 <img src="{{$sub->logo}}" alt="" class="w-5 inline rounded-full">
-                /r/{{$subName}}
+                {{$subName}}
             </span>
         @endif
 
