@@ -2,14 +2,39 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Subreddit;
+use Illuminate\Support\Facades\Request;
 use Livewire\Component;
 
 class SubredditList extends Component
 {
     public $subreddits;
-    public $subreddit;
+    public $subName;
+    public $sub;
     public $list = 'hidden';
     public $hidden = true;
+
+    public function mount() {
+        if(Request::is('/')) {
+            $this->subName = "Home";
+        } elseif (Request::is('popular')) {
+            $this->subName = "Popular";
+        } elseif(Request::is('r/*')) {
+            $link = request()->url(); // gets the link
+            $link_array = explode('/r/',$link); // split the link into an array by the /r/ portion of the link
+            $endOfLink = end($link_array); // gets the end of the array. example: /r/subreddit, /r/subreddit/submit
+            if (str_contains($endOfLink, '/')) { // if the slug after /r/ isnt just the name of a subreddit
+                $endOfLinkArr = explode('/', $endOfLink); // example: subName/submit becomes ['subName', 'submit']
+                $this->subName = $endOfLinkArr[0]; // gets the subName from the array
+            } else {
+                $this->subName = $endOfLink; // if it's just the subreddit name just take it.
+            }
+            
+            $this->sub = Subreddit::whereName($this->subName)->first();
+        }
+    }
+
+
 
     public function toggleList() {
         if($this->hidden) {

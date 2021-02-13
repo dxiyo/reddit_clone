@@ -1,13 +1,10 @@
 @extends('layouts.subreddit')
 
 @section('content')
-{{-- @if($post instanceof \App\Models\ImagePost) 
-    @livewire('component', ['user' => $user], key($user->id)) --}}
 
 <div class="bg-white border border-gray-300 rounded">
 
     <div class="flex">
-        {{-- @livewire('karma', ['karma' => $post->purekarma]) --}}
         @livewire('upvotes', ['upvotes' => $upvotes, 'post' => $post, 'type' => get_class($post) == "App\Models\Post" ? "text" : "image"])
         <div class="flex flex-col p-2">
             <span class="text-gray-500 text-xs">
