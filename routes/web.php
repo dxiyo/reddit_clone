@@ -8,10 +8,6 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ImagePostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SubmitController;
-use App\Http\Controllers\UpvoteController;
-use App\Http\Controllers\DownvoteController;
-use App\Http\Controllers\UpvoteCommentController;
-use App\Http\Controllers\DownvoteCommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PopularController;
 use App\Models\User;
@@ -52,12 +48,6 @@ Route::middleware(['auth'])->group( function () {
 
 Route::post('/r/{subreddit}/comments/{postId}/submit/{type}', [CommentController::class, 'store']);
 Route::post('/{comment}/reply', [CommentController::class, 'storeReply']);
-
-
-Route::post('/{user}/upvote/comment/{comment}', [UpvoteCommentController::class, 'store']);
-Route::post('/{user}/downvote/comment/{comment}', [DownvoteCommentController::class, 'store']);
-Route::post('/{user}/upvote/{postId}/{type}', [UpvoteController::class, 'store']);
-Route::post('/{user}/downvote/{postId}/{type}', [DownvoteController::class, 'store']);
 
 
 Route::get('/user/{user}', [ProfileController::class, 'index'])->name('profile.show');
