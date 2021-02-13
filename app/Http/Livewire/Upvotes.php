@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Upvotes extends Component
@@ -13,16 +14,24 @@ class Upvotes extends Component
 
     // upvotes the post and also rerenders the upvotes
     public function upvote() {
-        $this->post->upvote(auth()->user());
-
-        $this->upvotes = Post::withUpvotes()->find($this->post->id)->upvotes;
+        if(Auth::check()) {
+            $this->post->upvote(auth()->user());
+    
+            $this->upvotes = Post::withUpvotes()->find($this->post->id)->upvotes;
+        } else {
+            redirect('/login');
+        }
     }
 
     // downvotes the post and also rerenders the upvotes
     public function downvote() {
-        $this->post->downvote(auth()->user());
-
-        $this->upvotes = Post::withUpvotes()->find($this->post->id)->upvotes;
+        if(Auth::check()) {
+            $this->post->downvote(auth()->user());
+    
+            $this->upvotes = Post::withUpvotes()->find($this->post->id)->upvotes;
+        } else {
+            redirect('/login');
+        }
     }
     public function render()
     {

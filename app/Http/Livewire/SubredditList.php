@@ -15,8 +15,8 @@ class SubredditList extends Component
     public $hidden = true;
 
     public function mount() {
-        if(Request::is('/')) {
-            $this->subName = "Home";
+        if(Request::is('/') || Request::is('user/*')) {
+            $this->subName = "Home"; // show the homepage link if the user is in the home or in his profile page
         } elseif (Request::is('popular')) {
             $this->subName = "Popular";
         } elseif(Request::is('r/*')) {

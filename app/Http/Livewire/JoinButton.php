@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class JoinButton extends Component
@@ -10,14 +11,22 @@ class JoinButton extends Component
     public $is_subscribed;
 
     public function mount() {
-        $this->is_subscribed = auth()->user()->is_subscribed($this->subreddit);
+        if(Auth::check()) {
+            $this->is_subscribed = auth()->user()->is_subscribed($this->subreddit);
+        } else {
+            $this->is_subscribed = false;
+        }
     }
 
     public function subscribe() {
-        $user = auth()->user();
-        $user->subscribe($this->subreddit);
-
-        $this->is_subscribed = auth()->user()->is_subscribed($this->subreddit);
+        if(Auth::check()) {
+            $user = auth()->user();
+            $user->subscribe($this->subreddit);
+    
+            $this->is_subscribed = auth()->user()->is_subscribed($this->subreddit);
+        } else {
+            redirect('/login');
+        }
     }
     public function render()
     {
